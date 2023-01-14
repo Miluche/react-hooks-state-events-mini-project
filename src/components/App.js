@@ -14,7 +14,7 @@ function App() {
   return (
     <div className="App">
       <h2>My tasks</h2>
-      <CategoryFilter categories={CATEGORIES} />
+      <CategoryFilter categories={CATEGORIES} setCurrentTasks={setCurrentTasks} tasks={TASKS} />
       <NewTaskForm />
       <TaskList tasks={currentTasks} setCurrentTasks={setCurrentTasks} />
     </div>

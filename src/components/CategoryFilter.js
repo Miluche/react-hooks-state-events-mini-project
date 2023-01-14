@@ -1,9 +1,15 @@
 import React, { useState } from "react";
 
-function CategoryFilter({ categories }) {
+function CategoryFilter({ categories, setCurrentTasks, tasks }) {
   const [isSelected, setIsSelected] = useState("All");
 
   function selectCategory(category) {
+    if (category === "All") {
+      setCurrentTasks(tasks);
+    } else {
+      setCurrentTasks(tasks.filter((task) => task.category === category));
+    }
+
     setIsSelected(category);
     return;
   }
