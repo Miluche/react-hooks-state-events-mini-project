@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import CategoryFilter from "./CategoryFilter";
 import NewTaskForm from "./NewTaskForm";
 import TaskList from "./TaskList";
@@ -9,13 +9,27 @@ console.log({ CATEGORIES, TASKS });
 
 function App() {
 
-  const [currentTasks, setCurrentTasks] = useState(TASKS);
+  const [allTasks, setAllTasks] = useState(TASKS);
+  const [currentTasks, setCurrentTasks] = useState(allTasks);
+
+  function handleAddTask(task) {
+    if (task.text.length > 0 && task.category.length > 0) {
+      setAllTasks([...allTasks, task]);
+      return;
+    } else {
+      return;
+    }
+  }
+
+  useEffect(() => {
+    setCurrentTasks(allTasks);
+  }, [allTasks])
 
   return (
     <div className="App">
       <h2>My tasks</h2>
-      <CategoryFilter categories={CATEGORIES} setCurrentTasks={setCurrentTasks} tasks={TASKS} />
-      <NewTaskForm />
+      <CategoryFilter categories={CATEGORIES} setCurrentTasks={setCurrentTasks} tasks={allTasks} />
+      <NewTaskForm categories={CATEGORIES} onTaskFormSubmit={handleAddTask} />
       <TaskList tasks={currentTasks} setCurrentTasks={setCurrentTasks} />
     </div>
   );
