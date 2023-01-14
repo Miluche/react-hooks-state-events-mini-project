@@ -1,11 +1,10 @@
-import React, { useState } from "react";
+import React from "react";
 import Task from "./Task";
 
-function TaskList({ tasks }) {
-  const [currentTasks, setCurrentTasks] = useState(tasks);
+function TaskList({ tasks, setCurrentTasks }) {
 
   function removeTask(text) {
-    setCurrentTasks(currentTasks.filter((task) => {
+    setCurrentTasks(tasks.filter((task) => {
       return task.text !== text;
     }));
     return;
@@ -15,8 +14,8 @@ function TaskList({ tasks }) {
   return (
     <div className="tasks">
       {/* display a list of tasks using Task component */}
-      {currentTasks.map((task) => {
-        return <Task text={task.text} category={task.category} removeTask={removeTask} />
+      {tasks.map((task) => {
+        return <Task key={task.text} text={task.text} category={task.category} removeTask={removeTask} />
       })}
     </div>
   );
